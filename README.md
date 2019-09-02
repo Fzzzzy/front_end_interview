@@ -7,7 +7,7 @@
 
 <h2 id='1'>基础知识</h2>
 <h4 id='1.1'>计算机网络</h4>
-![计网](/assets/图片1.png)
+![network](assets/1.png)
 
 
 
