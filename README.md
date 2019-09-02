@@ -7,7 +7,7 @@
 
 <h2 id='1'>基础知识</h2>
 <h4 id='1.1'>计算机网络</h4>
-![network](assets/1.png)
+![network](https://github.com/Fzzzzy/front_end_interview/blob/master/assets/1.png)
 
 
 
