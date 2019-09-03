@@ -18,6 +18,9 @@
 * [CSS相关](#2)
   * [元素定位](#2.1)
     * [基础css定位](#2.1.1)
+    * [使元素消失](#2.1.2)
+    * [水平居中](#2.1.3)
+    * [垂直居中](#2.1.4)
 * [JavaScript](#3)
 
 <h2 id='1'>基础知识</h2>
@@ -178,7 +181,7 @@
   - 加载顺序
   - 服务端渲染
 
-<hr>
+---
 <h2 id='2'>CSS相关</h2>
 <h3 id='2.1'>元素定位</h3>
 <h4 id='2.1.1'>基础css定位</h4>
@@ -213,7 +216,87 @@
     - ```scale(tx, ty)```
     - ```rotate(30deg)```
 
-<h4 id='2.1.2'></h4>
+<h4 id='2.1.2'>使元素消失</h4>
+
+- ```opacity: 0``` 不会改变页面布局，并且，如果该元素已经绑定一些事件，如click事件，那么点击该区域，也能触发点击事件的
+- ```visibility: hidden``` 不会改变页面布局，但是不会触发该元素已经绑定的事件
+- ```display: none``` 改变页面布局，可以理解成在页面中把该元素删除掉。
+
+<h4 id='2.1.3'>水平居中</h4>
+
+- 规定元素的宽度
+```css
+.inner {
+	position: absolute; /*或relative*/
+
+	width: 30px; /*规定元素宽度*/
+	height: 80px;
+
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); /*相对自身偏移量*/
+}
+```
+
+- 只使用margin 
+```css
+.inner {
+	position: relative;
+	margin: 0 auto; /*左右auto*/
+	width: 30px;
+	height: 80px;
+}
+```
+
+<h4 id='2.1.4'>垂直居中</h4>
+
+- 利用absolute 脱离文档流居中
+
+```css
+.inner {
+	display: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+```
+
+- 使用flex布局
+```css
+.inner {
+	display: flex;
+}
+```
+
+- 父元素使用table-cell
+```css
+.outer {
+	display: table-cell;
+}
+.inner {
+	vertical-align: middle;
+}
+```
+
+- css3属性transform
+```css
+.inner {
+	position: relative;
+	margin-top: 50%;
+	transform: translateY(-50%);
+}
+```
+
+
+
+
+
+
+
+
+
 
 
 
