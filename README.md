@@ -100,12 +100,12 @@
 
 <h4 id='1.2.3'>localStorage & sessionStorage</h4>
 
-特性 | Cookie | LocalStorage | SessionStorage | 
------|------|------|------|
-**数据的生命周期**|一般由服务器生成，可设置失效时间。如果在浏览器端生成Cookie，默认是关闭浏览器后失效|除非被清除，否则永久保存|仅在当前会话下有效，关闭页面或浏览器后被清除|
-**存放数据大小** | 4k左右  |5MB |5MB |
-**与服务器端通信** | 每次都会携带在HTTP头中，如果使用cookie保存过多数据会带来性能问题 | 仅在客户端（即浏览器）中保存，不参与和服务器的通信 | 仅在客户端（即浏览器）中保存，不参与和服务器的通信|
-**易用性**| 需要程序员自己封装，原生的Cookie接口不友好  | 原生接口可以接受，亦可再次封装来对Object和Array有更好的支持 | 原生接口可以接受，亦可再次封装来对Object和Array有更好的支持|
+| 特性               | Cookie                                                                             | LocalStorage                                                | SessionStorage                                              |
+| ------------------ | ---------------------------------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| **数据的生命周期** | 一般由服务器生成，可设置失效时间。如果在浏览器端生成Cookie，默认是关闭浏览器后失效 | 除非被清除，否则永久保存                                    | 仅在当前会话下有效，关闭页面或浏览器后被清除                |
+| **存放数据大小**   | 4k左右                                                                             | 5MB                                                         | 5MB                                                         |
+| **与服务器端通信** | 每次都会携带在HTTP头中，如果使用cookie保存过多数据会带来性能问题                   | 仅在客户端（即浏览器）中保存，不参与和服务器的通信          | 仅在客户端（即浏览器）中保存，不参与和服务器的通信          |
+| **易用性**         | 需要程序员自己封装，原生的Cookie接口不友好                                         | 原生接口可以接受，亦可再次封装来对Object和Array有更好的支持 | 原生接口可以接受，亦可再次封装来对Object和Array有更好的支持 |
 
 <h4 id='1.2.4'>Cookie & Session</h4>
 
@@ -227,24 +227,24 @@
 - 规定元素的宽度
 ```css
 .inner {
-	position: absolute; /*或relative*/
+  position: absolute; /*或relative*/
 
-	width: 30px; /*规定元素宽度*/
-	height: 80px;
+  width: 30px; /*规定元素宽度*/
+  height: 80px;
 
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%); /*相对自身偏移量*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /*相对自身偏移量*/
 }
 ```
 
 - 只使用margin 
 ```css
 .inner {
-	position: relative;
-	margin: 0 auto; /*左右auto*/
-	width: 30px;
-	height: 80px;
+  position: relative;
+  margin: 0 auto; /*左右auto*/
+  width: 30px;
+  height: 80px;
 }
 ```
 
@@ -254,38 +254,44 @@
 
 ```css
 .inner {
-	display: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
+  display: absolute;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  margin: -50px 0 0 0;  /*需要知道高度*/
+}
+
+.inner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto; /*利用margin，且top和bottom值必须相等*/
 }
 ```
 
 - 使用flex布局
 ```css
-.inner {
-	display: flex;
+.outer {
+  display: flex;
+  align-items: center;
 }
 ```
 
 - 父元素使用table-cell
 ```css
 .outer {
-	display: table-cell;
-}
-.inner {
-	vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 ```
 
 - css3属性transform
 ```css
 .inner {
-	position: relative;
-	margin-top: 50%;
-	transform: translateY(-50%);
+  position: relative;
+  margin-top: 50%;
+  transform: translateY(-50%);
 }
 ```
 
