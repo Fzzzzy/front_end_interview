@@ -31,6 +31,8 @@
   * [数组操作](#3.2)
   * [typeof](#3.3)
   * [instanceof](#3.4)
+  * [if条件判断](#3.5)
+  * [apply, call 和 bind](#3.6)
 * [数据结构](#4)
 
 <h2 id='1'>基础知识</h2>
@@ -479,14 +481,51 @@
 
 <h3 id='3.4'>instanceof</h3>
 
-> instanceof运算符用于测试构造函数的prototype属性是否出现在对象的原型链中的任何位置
+> instanceof运算符用于测试构造函数的prototype属性是否出现在对象的原型链中的任何位置 
 
 - 所有对象和函数 instanceof Object  //true （因为JS万物皆对象，函数也是对象）
 - 所有函数 instanceof Function  //true（这个很好理解，包括普通函数和构造函数）
 - 除Object和Function之外的构造函数 instanceof 自身  //false （因为构造函数的原型链上只有Function.prototype和Object.prototype而没有它们自身的prototype）
+```js
+null instanceof Object // false
+null typeof Object // true
+undefined == null // true
+undefined == NULL // false
+typeof undefined == typeof NULL // true
+undefined !== nulll // true
+```
 
+<h3 id='3.5'>if条件判断</h3>
 
+- if(x) 这里期望 x 是一个布尔类型的原始值
+- 在 JS 中，只有 0，-0，NaN，""，null，undefined 这六个值转布尔值时，结果为 false
 
+<h3 id='3.6'>apply, call 和 bind</h3>
+
+- **apply**
+  - apply 方法传入两个参数：一个是作为函数上下文的对象，另外一个是作为函数参数所组成的数组。
+    ```js
+    var obj = {
+      test : 'zoey'
+    }
+    function func(firstName, lastName){
+        console.log(firstName + ' ' + this.name + ' ' + lastName);
+    }
+    func.apply(obj, ['A', 'B']); // A zoey B
+    ```
+  - 举例，直接应用min找出最小元素：`let minElement = Math.min.apply(null, arr);`
+- **call**
+  - call 同样可以实现和上述一样的效果，但第二个传参是一个参数列表，而不是单个数组
+  - `func.call(obj, 'A', 'B')`
+  - apply、call 方法都会使函数**立即执行**，因此它们也可以用来调用函数 - `func.call()`
+- **bind**
+  - bind 和 call 很相似，接受的参数有两部分，第一个参数是是作为函数上下文的对象，第二部分参数是个列表，可以接受多个参数。
+  - bind 返回值是函数
+    ```js
+    let func1 = func.bind(obj);
+    func1(); // zoey
+    ```
+  - bind 方法**不会立即执行**，而是返回一个改变了上下文 this 后的函数。而原函数 func 中的 this 并没有被改变，依旧指向全局对象 window。
 
 
  
