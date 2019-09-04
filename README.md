@@ -21,7 +21,15 @@
     * [使元素消失](#2.1.2)
     * [水平居中](#2.1.3)
     * [垂直居中](#2.1.4)
+    * [清除浮动](#2.1.5)
+  * [css其他](#2.2)
+    * [css引入](#2.2.1)
+    * [选择器的优先级](#2.2.2)
+    * [盒模型](#2.2.3)
 * [JavaScript](#3)
+  * [this](#3.1)
+  * [数组操作](#3.2)
+* [数据结构](#4)
 
 <h2 id='1'>基础知识</h2>
 <h3 id='1.1'>计算机网络</h3>
@@ -295,16 +303,80 @@
 }
 ```
 
+<h4 id='2.1.5'>清除浮动</h4>
 
+- 利用clear属性，清除浮动
 
+```css
+/* 
+ * 在子元素后添加新的div.clear 
+ *  <div class="box">
+ *    <div class="div1">1</div>
+ *    <div class="div2">2</div>
+ *    <div class="div3">3</div>
+ *    <div class="clear"></div>
+ *  </div>
+**/
+.clear {
+  clear: both; /*规定元素的两侧不允许其之前浮动元素*/
+  height: 0;
+}
 
+/* 或在父级样式添加伪元素:after或者:before */
+.box::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+```
 
+- 使父容器形成**BFC**（Block Format Content）
+  - ```float``` 不为 none
+  - ```overflow```: hidden 或 auto 或 scroll
+  - ```display```: inline-block 或 table-cell 或 table-caption
+  - ```position```: absolute 或 fixed
 
+比如
+```css
+.box {
+  overflow: auto;
+}
+```
 
+<h3 id='2.2'>css其他</h3>
 
+<h4 id='2.2.1'>css引入</h4>
 
+> link 和 @import 都是引入外部 CSS 的方式
+- @import 由 CSS 提供，只能导入样式
+- link 是 XHTML 标签，不仅可以链接外部样式文件，还可以定义RSS，rel连接属性等。
 
+<h4 id='2.2.2'>选择器的优先级</h4>
 
+- id选择器 > class选择器 = 伪类 > 标签名称选择器
+- 带有!important 标记的样式属性的优先级最高
 
+<h4 id='2.2.2'>盒模型</h4>
 
+- 标准盒模型：一个块的总宽度 = width + margin(左右) + border(左右) + padding(左右) 
+- IE盒模型：一个块的总宽度 = width + margin（左右）（既width已经包含了padding和border值）
+- box-sizing
+  - box-sizing:content-box 表示标准的盒子模型
+  - box-sizing:border-box 表示的是IE盒子模型
+
+---
 <h2 id='3'>JavaScript</h2>
+
+<h3 id='3.1'>this</h3>
+
+- 在使用```new```实例化对象时，```this```指向这个实例对象
+- 当对象调用方法时，```this```指向这个对象。
+- ```this```只有函数执行的时候才能确定```this```到底指向谁，实际上```this```的最终指向的是那个调用它的对象
+
+<h3 id='3.2'>数组操作</h3>
+
+- ```new length = arr.push(e1, e2...)``` 向数组的末尾添加一个或多个元素，并返回新的长度
+
+
+<h2 id='4'>数据结构</h2>
+
