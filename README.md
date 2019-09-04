@@ -29,6 +29,8 @@
 * [JavaScript](#3)
   * [this](#3.1)
   * [数组操作](#3.2)
+  * [typeof](#3.3)
+  * [instanceof](#3.4)
 * [数据结构](#4)
 
 <h2 id='1'>基础知识</h2>
@@ -423,8 +425,65 @@
       }
     })
     ```
-- 
+-  ```array.forEach(function(currentValue, index, arr), thisValue)```
+   -  currentValue(必须),数组当前元素的值
+   - index(可选), 当前元素的索引值
+   - arr(可选), 数组对象本身
+   - thisValue(可选): 当执行回调函数时this绑定对象的值，默认值为undefined
+    ```js
+    let arr = [1, 2, ,3]; // 倒数第二个元素为空，不会被遍历， 但 undefined, null 会被遍历
+    let obj = { name: 'Heroku' };
+    arr.forEach((item, idx, arr) => {
+      arr[3] = 'alter'; //遍历到 idx=3 时会使用新值 alter
+      arr.push(4); //不会被遍历
+      console.log(this.name); //三次'Heroku'，因为this被绑定到obj上
+      break; //报错
+      return item; //进行下一次回调
 
+    }, obj);
+    ```
+- ```let new_array = arr.map(function(currentValue, index, arr), thisArg)```
+  - currentValue(必须), 数组当前元素的值
+  - index(可选), 当前元素的索引值
+  - arr(可选), 数组对象本身
+  -  和 `forEach` 的区别是，不会改变原数组，`map` 返回值为map后的新数组
+- `let new_array = arr.filter(function(currentValue, index, arr), thisArg)`
+  - 返回值是符合filter条件的所有元素组成的新数组
+  ```js
+  let arr = [23, 24, 10, 99];
+  let res = arr.fileter(val => {
+    return val > 20;
+  });
+  //res = [23, 24, 99]
+  ```
+
+<h3 id='3.3'>typeof</h3>
+ 
+- `typeof true` boolean
+- `typeof 2` number
+- `typeof NaN` number
+- `typeof '22'` string
+---
+- `typeof {}` object
+- `typeof Array` object
+- `typeof null` object :trollface:
+- `typeof /regex/` object
+---
+- `typeof NULL` undefined :trollface:
+- `typeof undefined` undefined
+--- 
+- `typeof Function` function
+- `typeof class C {}`  function;
+- `typeof Object` function :trollface:
+- `typeof Math.sin`  function;
+
+<h3 id='3.4'>instanceof</h3>
+
+> instanceof运算符用于测试构造函数的prototype属性是否出现在对象的原型链中的任何位置
+
+- 所有对象和函数 instanceof Object  //true （因为JS万物皆对象，函数也是对象）
+- 所有函数 instanceof Function  //true（这个很好理解，包括普通函数和构造函数）
+- 除Object和Function之外的构造函数 instanceof 自身  //false （因为构造函数的原型链上只有Function.prototype和Object.prototype而没有它们自身的prototype）
 
 
 
