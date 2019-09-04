@@ -34,6 +34,9 @@
   * [if条件判断](#3.5)
   * [apply, call 和 bind](#3.6)
   * [js跨域](#3.7)
+  * [ECMAScript 6](#3.8)
+    * [基本数据类型](#3.8.1)
+    * [let和var的区别](#3.8.2)
 * [数据结构](#4)
 
 <h2 id='1'>基础知识</h2>
@@ -537,7 +540,7 @@ undefined !== nulll // true
 
   // 传参一个回调函数名给后端，方便后端返回时执行这个在前端定义的回调函数
   script.src = 'http://www.domain2.com:8080/login?user=admin&callback=handleCallback';
-  document.head.appendChild(script);
+  document.body.appendChild(script);
 
   // 回调执行函数
   function handleCallback(res) {
@@ -547,7 +550,24 @@ undefined !== nulll // true
   //服务器返回如下
   handleCallback({"status": true, "user": "admin"})
   ```
-- **document.domain**: 这种方式用在主域名相同子域名不同的跨域访问中 `a.jd.com & b.jd.com`
+- **document.domain**:
+  - 这种方式用在主域名相同子域名不同的跨域访问中,所用的协议，端口都要一致. `a.jd.com & b.jd.com`
+  ```js
+  document.domain = 'baidu.com';
+
+  let ifr = document.createElement('iframe');
+  ifr.src = 'map.baidu.com/map.html';
+  ifr.style.display = 'none';
+  document.body.appendChild(ifr);
+
+  ifr.onload = function(){
+    let doc = ifr.contentDocument || ifr.contentWindow.document;
+    // 这里可以操作map.baidu.com下的map.html页面
+    let oUl = doc.getElementById('ul1');
+    alert(oUl.innerHTML);
+    ifr.onload = null;
+  }
+  ```
 - **window.name**: window的name属性有个特征：在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个window.name的，每个页面对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的，并不会因新页面的载入而进行重置。
 - **window.postMessage**: window.postMessages是html5中实现跨域访问的一种新方式，可以使用它来向其它的window对象发送消息，无论这个window对象是属于同源或不同源。
 - **CORS**: CORS背后的基本思想，就是使用自定义的HTTP头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功还是应该失败。浏览器判断请求头的 `Origin` 与响应头的 `Access-Control-Allow-Origin` 匹配成功。
@@ -568,8 +588,47 @@ undefined !== nulll // true
   ```
 - **Web Sockets**: 在JS创建了web socket之后，会有一个HTTP请求发送到浏览器以发起连接。取得服务器响应后，建立的连接会使用HTTP升级从HTTP协议交换为web sockt协议。
 
- 
+---
+<h3 id='3.8'>ECMAScript 6</h3>
 
+<h4 id='3.8.1'>基本数据类型</h4>
+
+- Number、String、Null、Undefined、Symbol（新增）、Boolean
+- 有两种复杂数据类型，array，object.
+
+<h4 id='3.8.2'>let和var的区别</h4>
+
+- **let 不存在变量提升**
+  ```js
+  console.log(foo); // 输出undefined
+  var foo = 2;
+
+  console.log(bar); // 报错ReferenceError
+  let bar = 2;
+  ```
+- **let 仅在代码块内生效**
+  ```js
+  {
+    let a = 10;
+    var b = 1;
+  }
+
+  a // ReferenceError: a is not defined.
+  b // 1
+  ```
+- **let 和 const 存在暂时性死区**
+  - 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+  ```js
+  var tmp = 123;
+
+  if (true) {
+    tmp = 'abc'; // ReferenceError
+    let tmp;
+  }
+  ```
+- **let 依照块级作用域**
+  - ES5 只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。第一种场景，内层变量可能会覆盖外层变量。第二种场景，用来计数的循环变量泄露为全局变量。
+  - let 实际上为 JavaScript 新增了块级作用域。
 
 <h2 id='4'>数据结构</h2>
 
