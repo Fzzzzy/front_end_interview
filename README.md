@@ -401,13 +401,13 @@
   ```
 - ```arr.sort()```
   - 没传比较函数的话，默认按字母升序，如果不是元素不是字符串的话，会调用toString()方法将元素转化为字符串的Unicode点，然后再比较字符。
-  - 升序 🌰
+  - 升序 
     ```js
     sort.sort(function(a,b){
       return a - b;
     });
     ```
-  - 降序 🌰
+  - 降序 
     ```js
     sort.sort(function(a,b){
       return b - a;
