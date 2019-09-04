@@ -33,6 +33,7 @@
   * [instanceof](#3.4)
   * [if条件判断](#3.5)
   * [apply, call 和 bind](#3.6)
+  * [js跨域](#3.7)
 * [数据结构](#4)
 
 <h2 id='1'>基础知识</h2>
@@ -527,6 +528,45 @@ undefined !== nulll // true
     ```
   - bind 方法**不会立即执行**，而是返回一个改变了上下文 this 后的函数。而原函数 func 中的 this 并没有被改变，依旧指向全局对象 window。
 
+<h3 id='3.7'>js跨域</h3>
+
+- **jsonp**: jsonp的原理是利用`<script>`标签的跨域特性，可以不受限制地从其他域中加载资源，类似的标签还有`<img>`. jsonp只能发送get请求。
+  ```js
+  script = document.createElement('script');
+  script.type = 'text/javascript';
+
+  // 传参一个回调函数名给后端，方便后端返回时执行这个在前端定义的回调函数
+  script.src = 'http://www.domain2.com:8080/login?user=admin&callback=handleCallback';
+  document.head.appendChild(script);
+
+  // 回调执行函数
+  function handleCallback(res) {
+      log(JSON.stringify(res));
+  }
+
+  //服务器返回如下
+  handleCallback({"status": true, "user": "admin"})
+  ```
+- **document.domain**: 这种方式用在主域名相同子域名不同的跨域访问中 `a.jd.com & b.jd.com`
+- **window.name**: window的name属性有个特征：在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个window.name的，每个页面对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的，并不会因新页面的载入而进行重置。
+- **window.postMessage**: window.postMessages是html5中实现跨域访问的一种新方式，可以使用它来向其它的window对象发送消息，无论这个window对象是属于同源或不同源。
+- **CORS**: CORS背后的基本思想，就是使用自定义的HTTP头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功还是应该失败。浏览器判断请求头的 `Origin` 与响应头的 `Access-Control-Allow-Origin` 匹配成功。
+  ```js
+  let xhr = new XMLHttpRequest(); 
+  // 前端设置是否带cookie
+  xhr.withCredentials = true;
+
+  xhr.open('post', 'http://www.domain.com:8080/login', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.send('data);
+
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+          alert(xhr.responseText);
+      }
+  };
+  ```
+- **Web Sockets**: 在JS创建了web socket之后，会有一个HTTP请求发送到浏览器以发起连接。取得服务器响应后，建立的连接会使用HTTP升级从HTTP协议交换为web sockt协议。
 
  
 
