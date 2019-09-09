@@ -37,7 +37,7 @@
   * [ECMAScript 6](#3.8)
     * [基本数据类型](#3.8.1)
     * [let和var的区别](#3.8.2)
-    * [Promise和aync/await](#3.8.3)
+    * [Promise](#3.8.3)
 
 <h2 id='1'>基础知识</h2>
 <h3 id='1.1'>计算机网络</h3>
@@ -630,7 +630,7 @@ undefined !== nulll // true
   - ES5 只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。第一种场景，内层变量可能会覆盖外层变量。第二种场景，用来计数的循环变量泄露为全局变量。
   - let 实际上为 JavaScript 新增了块级作用域。
 
-<h4 id='3.8.3>Promise和aync/await</h4>
+<h4 id='3.8.3'>Promise</h4>
 
 - **对象的状态不受外界影响**
   - Promise对象代表一个异步操作，有三种状态：`pending`（进行中）、`fulfilled`（已成功）和`rejected`（已失败）。
