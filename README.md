@@ -37,7 +37,6 @@
   * [ECMAScript 6](#3.8)
     * [基本数据类型](#3.8.1)
     * [let和var的区别](#3.8.2)
-* [数据结构](#4)
 
 <h2 id='1'>基础知识</h2>
 <h3 id='1.1'>计算机网络</h3>
@@ -464,7 +463,7 @@
   ```
 
 <h3 id='3.3'>typeof</h3>
- 
+
 - `typeof true` boolean
 - `typeof 2` number
 - `typeof NaN` number
@@ -630,5 +629,44 @@ undefined !== nulll // true
   - ES5 只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。第一种场景，内层变量可能会覆盖外层变量。第二种场景，用来计数的循环变量泄露为全局变量。
   - let 实际上为 JavaScript 新增了块级作用域。
 
-<h2 id='4'>数据结构</h2>
+<h4 id='3.8.2'>Promise和aync/await</h4>
+
+- **对象的状态不受外界影响**
+  - Promise对象代表一个异步操作，有三种状态：`pending`（进行中）、`fulfilled`（已成功）和`rejected`（已失败）。
+- **一旦状态改变，就不会再变**
+  - Promise对象的状态改变，只有两种可能：从`pending`变为`fulfilled`和从`pending`变为`rejected`。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果，这时就称为 resolved（已定型）。
+- **任何时候都可以得到这个结果**
+  - 如果改变已经发生了，再对Promise对象添加回调函数，也会立即得到这个结果。
+- **举个例子**🌰
+  ```js
+    const getJSON = function(url) { // promise实现ajax异步加载
+		const promise = new Promise(function(resolve, reject){
+			const handler = function() {
+			if (this.readyState !== 4) {
+				return;
+			}
+			if (this.status === 200) {
+				resolve(this.response);
+			} else {
+				reject(new Error(this.statusText));
+			}
+			};
+			const client = new XMLHttpRequest();
+			client.open("GET", url);
+			client.onreadystatechange = handler;
+			client.responseType = "json";
+			client.setRequestHeader("Accept", "application/json");
+			client.send();
+
+		});
+
+		return promise;
+	};
+
+	getJSON("/posts.json").then(function(json) {
+		console.log('Contents: ' + json);
+		}, function(error) {
+		console.error('出错了', error);
+	});
+  ```
 
