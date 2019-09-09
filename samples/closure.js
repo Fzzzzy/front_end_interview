@@ -1,29 +1,40 @@
-//=========================== 闭包实现单例 ============================
-// 单例构造函数
-function CreateSingleton(name) {
-    this.name = name;
-    this.getName();
-};
+//========================= 闭包 ========================
+let foo = (function() {
+    let value = 0;
 
-// 获取实例的名字
-CreateSingleton.prototype.getName = function () {
-    console.log(this.name)
-};
-
-// 单例对象
-var Singleton = (function () {
-    var instance;
-    return function (name) {
-        if (!instance) {
-            instance = new CreateSingleton(name);
+    return {
+        increase: function(inc) {
+            value += typeof inc === 'number'? inc : 1;
+        },
+        getValue: function() {
+            return value;
         }
-        return instance;
     }
-})();
+}()); 
+// 并没有把一个函数赋值给foo，是把调用该函数后返回的结果赋值给它
+// 该函数返回一个包含两个方法的对象，并且这些方法继续享有访问value变量的特权。
 
-// 创建实例对象1
-var a = new Singleton('a');
-// 创建实例对象2
-var b = new Singleton('b');
+let a = foo;
+a.increase();
+console.log(a.getValue()); // 1
+let b = foo;
+a.increase();
+console.log(b.getValue()); // 2
 
-b.getName(); 
+//=======
+
+//每time毫秒执行一次func，共执行count次
+let func = function () {
+    console.log(1);
+}
+var runFunc = function (f, time, count) {
+    var foo = function () {
+        if (count > 0) {
+            f();
+            setTimeout(foo, time, --count);
+        }
+    };
+    setTimeout(foo, time);
+};
+
+runFunc(func, 1000, 3);
