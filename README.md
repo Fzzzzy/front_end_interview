@@ -38,9 +38,12 @@
     * [基本数据类型](#3.8.1)
     * [let和var的区别](#3.8.2)
     * [Promise](#3.8.3)
+  * [事件委托](#3.9)
+  * [`for in` 和 `for of` 的区别](#3.10)
 * [React](#4)
   * [生命周期](#4.1)
   * [diff算法](#4.2)
+  * [react-router](#4.3)
 
 <h2 id='1'>基础知识</h2>
 <h3 id='1.1'>计算机网络</h3>
@@ -684,6 +687,77 @@ undefined !== nulll // true
 	});
   ```
 
+
+<h3 id='3.9'>事件委托</h3>
+
+> 事件委托又称事件代理，是指利用事件冒泡，只制定一个事件处理程序，就可以管理某一类型的全部事件。
+
+- 适合用事件委托的事件：click，mousedown，mouseup，keydown，keyup，keypress
+- 不适合：
+  - focus，blur（没有冒泡属性）
+  - mouseover和mouseout虽然也有事件冒泡，但是处理它们的时候需要特别的注意，因为需要经常计算它们的位置，处理起来不太容易。
+```js
+target.addEventListener(type, listener [,{capture: Boolean, bubbling: Boolean, once: Boolean}]);
+```
+- **capture**
+  - true: 捕获阶段触发
+  - false：目标或冒泡阶段触发
+- **once** 表示listener在添加之后最多只调用一次
+- **passive** 表示listener永远不会调用preventDefault() 
+
+举个🌰
+```js
+window.onload = function(){
+  var oBtn = document.getElementById("btn");
+  var oUl = document.getElementById("ul1");
+  var aLi = oUl.getElementsByTagName('li');
+  var num = 4;
+  
+  //事件委托，添加的子元素也有事件
+  oUl.onmouseover = function(ev){
+      var ev = ev || window.event;
+      var target = ev.target || ev.srcElement;
+      if(target.nodeName.toLowerCase() == 'li'){ // nodeName会返回大写
+        target.style.background = "red";
+      }
+  };
+
+  oUl.onmouseout = function(ev){
+      var ev = ev || window.event;
+      var target = ev.target || ev.srcElement;
+      if(target.nodeName.toLowerCase() == 'li'){
+        target.style.background = "#fff";
+      }
+  };
+  
+  //添加新节点
+  oBtn.onclick = function(){
+      num++;
+      var oLi = document.createElement('li');
+      oLi.innerHTML = 111*num;
+      oUl.appendChild(oLi);
+  };
+}
+```
+
+<h3 id='3.10'>for in 和 for of 的区别</h3>
+
+> 简略不看型：遍历数组用`for of`，遍历对象用`for in`. 使用`for in`会遍历数组所有的可枚举属性，包括原型。
+
+- for in
+  - for in遍历的是数组的索引（即键名），而for of遍历的是数组元素值。
+  - 如果不想遍历原型方法和属性的话，可以在循环内部判断一下,`hasOwnPropery`方法可以判断某属性是否是该对象的实例属性
+  ```js
+    for (var key in myObject) {
+  　  if（myObject.hasOwnProperty(key)){
+  　　  console.log(key);
+  　  }
+    }
+  ```
+- for of
+  - `for..of`适用遍历数/数组对象/字符串/map/set等拥有**迭代器**对象的集合
+  - 与`forEach()`不同的是，它可以正确响应`break`、`continue`和`return`语句
+
 ----
 
 **<h2 id='4'>React</h2>**
@@ -711,3 +785,7 @@ undefined !== nulll // true
   - 尽量减少将最后一个节点移动到列表首部的操作
 - <img src='/assets/setState.png' width='600px'/>
 - 在React中`setState`不是每次调用就立刻渲染的。他们的队列的顺序也在一次事件之内进行结算（比如在`click`事件过程中可能有很多`setState`在等待，等`Click`事件完成之后，`setState`这个队列里面的内容就开始进行结算了），所以`setState`多次调用并**不会**导致渲染多次，但是事务的次数可能会导致渲染。
+
+<h3 id='4.3'>react-router</h3>
+
+- react-router在history库的基础上，实现了URL与UI的同步，分为两个层次来描述具体的实现。

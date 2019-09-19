@@ -32,5 +32,8 @@ let cat = new Cat("Kitty");
 cat.eat('fish'); //Kitty正在吃fish
 cat.sleep(); //Kitty正在睡觉
 cat.play();  // Kitty要求一起玩耍！
+
+// 实例的__proto__属性（原型）等于其构造函数的prototype属性。
+console.log(cat.__proto__, Cat.__proto__); // Cat.prototype, Function.prototype
 console.log(cat instanceof Animal); //true
 console.log(cat instanceof Cat); //true
