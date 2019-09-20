@@ -922,9 +922,9 @@ window.onload = function(){
   - 从根节点到叶节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）。
 - 红黑树的平衡修正
   - 变色
-     <img src="./assets/changeColor.jpeg" width="700px">    
+    - <img src="./assets/changeColor.jpeg" width="700px">    
   - 左旋  
-     <img src="./assets/rLeft.jpeg" width="700px">
+    - <img src="./assets/rLeft.jpeg" width="700px">
   - 右旋
-     <img src="./assets/rRight.jpeg" width="700px">
+    - <img src="./assets/rRight.jpeg" width="700px">
     
