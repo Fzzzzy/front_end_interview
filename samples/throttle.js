@@ -6,30 +6,29 @@
 */
 
 
-function func (val) {
-    console.log(val); // 需要绑定且节流
+function func(values) {
+    console.log(values[1]); // 需要绑定且节流
 }
 
-function throttle(fun, delay) {
-    let last, timer = null;
-    return function(arg) {
-        let _that = this;
+function throttle(func, delay) {
+    let context = this;
+    let [timer, past] = [null, null];
+    return function (...rest) {
         let now = +new Date();
-        if (last && now < last + delay) {
+        if (past && now - past > delay) {
             clearTimeout(timer);
             timer = setTimeout(() => {
-                last = now;
-                fun.call(_that, arg);
+                func.call(context, rest);
+                past = now;
             }, delay);
-        } else {
-            last = now;
-            fun.call(_that, arg);
         }
+        past = now;
     }
 }
+
 
 let throttleFunc = throttle(func, 1000);
 
 window.addEventListener('keyup', () => {
-    throttleFunc("throttle");
+    throttleFunc("throttle", 'key down');
 })
