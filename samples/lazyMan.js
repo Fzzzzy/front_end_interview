@@ -76,3 +76,4 @@ var LazyMan = function(name) {
 }
 
 LazyMan("hank").sleep(1000).eat("boost").sleepFirst(5);
+
