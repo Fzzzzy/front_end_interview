@@ -367,11 +367,12 @@
 }
 ```
 
-- 使父容器形成**BFC**（Block Format Content）
+- 使父容器形成**BFC**（Block Format Context）
   - ```float``` 不为 none
-  - ```overflow```: hidden 或 auto 或 scroll
+  - ```overflow```: 不为 visible
   - ```display```: inline-block 或 table-cell 或 table-caption
   - ```position```: absolute 或 fixed
+  - 根元素
 
 比如
 ```css
@@ -379,6 +380,17 @@
   overflow: auto;
 }
 ```
+
+- BFC的原理及应用
+  - **阻止`margin`重叠**
+    - 根据BFC的规则: Box垂直方向的距离由`margin`决定。属于同一个BFC的两个相邻Box的`margin`会发生重叠
+    - 在其中一个div外面包裹一层，并且设置一个BFC。他们之前都是同一根元素下面，现在让其中一个div脱离出来
+  - **清除内部浮动**
+    - 根据BFC的规则: 计算BFC的高度时，浮动元素也参与计算
+    - 解决办法将parent设置`overflow:hidden`,产生一个BFC，既可以让浮动元素参与高度计算
+  - **自适应两栏布局**
+    - 根据BFC的规则: 每个元素的margin box的左边， 与包含块border box的左边相接触，即使存在浮动也是如此
+    - 解决办法就是将右边的部分重新设置一个BFC
 
 <h4 id='2.1.6'>flex布局</h4>
 
