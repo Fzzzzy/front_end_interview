@@ -749,7 +749,9 @@ undefined !== nulll // true
 <h4 id='3.8.1'>基本数据类型</h4>
 
 - Number、String、Null、Undefined、Symbol（新增）、Boolean
-- 有两种复杂数据类型，array，object.
+- 只有一种复杂数据类型 Object
+- 基本数据类型将值存储在栈里；而复杂数据类型将引用放在栈里，值存储在堆里
+- 在拷贝过程中，基本数据类型直接进行值的拷贝，而复杂数据类型会拷贝引用，任何值改变的操作都会影响原始数据（这就是为什么要用深拷贝）
 
 <h4 id='3.8.2'>let和var的区别</h4>
 
