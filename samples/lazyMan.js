@@ -20,7 +20,7 @@
 // Eat supper
 
 
-var LazyMan = function(name) {
+var LazyMan = function (name) {
     const queue = [];
     const LazyMan = {
         say() {
@@ -28,7 +28,7 @@ var LazyMan = function(name) {
                 console.log(`Hi! This is ${name}!`);
                 this.next();
             });
-            
+
             return this;
         },
 
@@ -39,7 +39,7 @@ var LazyMan = function(name) {
                 }, delay);
                 this.next();
             });
-            
+
             return this;
         },
 
@@ -48,7 +48,7 @@ var LazyMan = function(name) {
                 console.log(`Eat ${sth}`);
                 this.next();
             });
-            
+
             return this;
         },
 
@@ -75,5 +75,5 @@ var LazyMan = function(name) {
     return LazyMan;
 }
 
-LazyMan("hank").sleep(1000).eat("boost").sleepFirst(5);
+LazyMan("hank").sleep(1000).eat("boost").sleepFirst(500);
 
