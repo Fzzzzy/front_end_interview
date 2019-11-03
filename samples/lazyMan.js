@@ -35,7 +35,7 @@ var LazyMan = function (name) {
         sleep(delay) {
             queue.push(() => {
                 setTimeout(() => {
-                    console.log(`Wake up after ${delay}`);
+                    console.log(`Sleep ${delay / 1000} seconds`);
                 }, delay);
                 this.next();
             });
@@ -55,7 +55,7 @@ var LazyMan = function (name) {
         sleepFirst(delay) {
             queue.unshift(() => {
                 setTimeout(() => {
-                    console.log(`Wake up after ${delay}`);
+                    console.log(`Sleep first ${delay / 1000} seconds`);
                     this.next();
                 }, delay);
             });
@@ -75,5 +75,5 @@ var LazyMan = function (name) {
     return LazyMan;
 }
 
-LazyMan("hank").sleep(1000).eat("boost").sleepFirst(500);
+LazyMan("hank").eat("goaza").sleep(1000).eat("boost").sleepFirst(500);
 

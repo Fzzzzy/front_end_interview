@@ -16,7 +16,7 @@ let promiseRace = function (promises) {
         return new Promise((resolve, reject) => {
             let count = promises.length;
             for (let i = 0; i < count; i++) {
-                Promise.resolve(promises[1]).then(res => {
+                Promise.resolve(promises[i]).then(res => {
                     return resolve(res);
                 }).catch(err => {
                     return reject(err);
