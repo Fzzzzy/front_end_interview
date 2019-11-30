@@ -97,15 +97,8 @@
  */
 
 function convert(str) {
-    let tmp = str.split('');
-    return tmp.reduce((acc, cur, idx) => {
-        if (!acc.includes('_')) {
-            return acc + cur;
-        }
-        else {
-            acc = acc.substring(0, acc.length - 1);
-            return acc + cur.toUpperCase();
-        }
+    return str.split('').reduce((acc, cur) => {
+        return acc.endsWith('_') ? acc.substring(0, acc.length - 1) + cur.toUpperCase() : acc + cur;
     });
 }
 
