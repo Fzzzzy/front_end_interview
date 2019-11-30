@@ -556,7 +556,7 @@
   - initialValue （作为第一次调用 callback 的第一个参数。）
   ```js
   let max = a.reduce((acc,cur,inde,arr) => {
-    return pre > cur? pre : cur;
+    return acc > cur? acc : cur;
   });
   ```
 - ```arr.sort()```
@@ -609,7 +609,7 @@
   - 返回值是符合filter条件的所有元素组成的新数组
   ```js
   let arr = [23, 24, 10, 99];
-  let res = arr.fileter(val => {
+  let res = arr.filter(val => {
     return val > 20;
   });
   //res = [23, 24, 99]

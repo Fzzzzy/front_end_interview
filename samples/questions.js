@@ -75,18 +75,38 @@
 
 // console.log(shift([0,1,0,0, 0,3,12,120]));
 
+// function find(arr, target) {
+//     let obj = {};
+//     arr.map((item, idx) => {
+//         obj[item] = idx;
+//     });
 
-function find(arr, target) {
-    let obj = {};
-    arr.map((item, idx) => {
-        obj[item] = idx;
+//     for (let key in obj) {
+//         let remain = target - key;
+//         if (obj[remain] && obj[remain] != obj[key]) return [obj[key], obj[remain]];
+//     }
+//     return null;
+// }
+
+// console.log(find([2, 7, 11, 15], 14))
+
+/**
+ * 用reduce实现
+ * 转化下划线命名到驼峰命名
+ * hff_fe_a2 -> hffFeA2
+ */
+
+function convert(str) {
+    let tmp = str.split('');
+    return tmp.reduce((acc, cur, idx) => {
+        if (!acc.includes('_')) {
+            return acc + cur;
+        }
+        else {
+            acc = acc.substring(0, acc.length - 1);
+            return acc + cur.toUpperCase();
+        }
     });
-
-    for (let key in obj) {
-        let remain = target - key;
-        if (obj[remain] && obj[remain] != obj[key]) return [obj[key], obj[remain]];
-    }
-    return null;
 }
 
-console.log(find([2, 7, 11, 15], 14))
+console.log(convert('hff_fe_a2'));

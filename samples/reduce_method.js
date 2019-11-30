@@ -1,5 +1,5 @@
 //====================== reduce转化下划线命名到驼峰命名 =======================
-let arr = Array.from("hff_fe_22_sdfnFF_F1");
+let arr = Array.from("hff_fe_22");
 
 let newStr = arr.reduce((acc, cur) => {
     let i = acc.indexOf('_');
