@@ -41,10 +41,6 @@
     * [Promise](#3.8.3)
   * [事件委托](#3.9)
   * [`for in` 和 `for of` 的区别](#3.10)
-* [React](#4)
-  * [生命周期](#4.1)
-  * [diff算法](#4.2)
-  * [react-router](#4.3)
 
 <h2 id='1'>基础知识</h2>
 <h3 id='1.1'>计算机网络</h3>
@@ -900,34 +896,3 @@ window.onload = function(){
   - `for..of`适用遍历数/数组对象/字符串/map/set等拥有**迭代器**对象的集合
   - 与`forEach()`不同的是，它可以正确响应`break`、`continue`和`return`语句
 
-----
-
-**<h2 id='4'>React</h2>**
-
-<h3 id='4.1'>生命周期</h3>
-
-<img src='/assets/react_lifecycle.png' width='900px'/>
-
-<h3 id='4.2'>diff算法</h3>
-
-- 是`virtual-dom`和渲染的性能保证
-- 策略一：`tree diff` 忽略Web UI中DOM节点**跨层级移动**；
-  - 将dom tree分层级，之比较同层级的节点，如果对比发现该父节点不存在则直接删除该节点下所有子节点，不会做进一步比较，这样只需要对dom tree进行一次遍历就完成了两个tree的比较。
-  - 保证稳定dom结构有利于提升性能，不建议频繁真正的移除或者添加节点
-- 策略二：`component diff` 拥有相同类型的两个组件产生的DOM结构也是**相似**的，不同类型的两个组件产生的DOM结构则不近相同
-  - 同一类型组件遵从`tree diff`比较v-dom树
-  - 不通类型组件，先将该组件归类为`dirty component`，替换下整个组件下的所有子节点
-  - 同一类型组件Virtual Dom没有变化，React允许开发者使用`shouldComponentUpdate()`来判断该组件是否进行diff，运用得当可以节省diff计算时间，提升性能
-  - 对于同一类型组件合理使用`shouldComponentUpdate()`，应该避免结构相同类型不同的组件
-- 策略三：`element diff` 对于同一层级的一组子节点，通过分配唯一**唯一id**进行区分(key值)
-  - 得到需要create、update和remove的节点后，就可以开始进行渲染了
-  - 遍历所有需要remove的节点，将其从真实DOM中remove掉
-  - 再遍历需要更新的节点，将其插入到对应的位置中
-  - 创建新的DOM节点，并插入到正确的位置中
-  - 尽量减少将最后一个节点移动到列表首部的操作
-- <img src='/assets/setState.png' width='600px'/>
-- 在React中`setState`不是每次调用就立刻渲染的。他们的队列的顺序也在一次事件之内进行结算（比如在`click`事件过程中可能有很多`setState`在等待，等`Click`事件完成之后，`setState`这个队列里面的内容就开始进行结算了），所以`setState`多次调用并**不会**导致渲染多次，但是事务的次数可能会导致渲染。
-
-<h3 id='4.3'>react-router</h3>
-
-- react-router在history库的基础上，实现了URL与UI的同步，分为两个层次来描述具体的实现。
