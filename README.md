@@ -665,7 +665,7 @@ undefined !== nulll // true
   - apply 方法传入两个参数：一个是作为函数上下文的对象，另外一个是作为函数参数所组成的数组。
     ```js
     var obj = {
-      test : 'zoey'
+      name : 'zoey'
     }
     function func(firstName, lastName){
         console.log(firstName + ' ' + this.name + ' ' + lastName);
@@ -679,12 +679,12 @@ undefined !== nulll // true
   - apply、call 方法都会使函数**立即执行**，因此它们也可以用来调用函数 - `func.call()`
 - **bind**
   - bind 和 call 很相似，接受的参数有两部分，第一个参数是是作为函数上下文的对象，第二部分参数是个列表，可以接受多个参数。
-  - bind 返回值是函数
+  - bind 返回值是一个新函数
     ```js
     let func1 = func.bind(obj);
     func1(); // zoey
     ```
-  - bind 方法**不会立即执行**，而是返回一个改变了上下文 this 后的函数。而原函数 func 中的 this 并没有被改变，依旧指向全局对象 window。
+  - bind 方法**不会立即执行**，而是返回一个改变了上下文 this 后的新函数。而原函数 func 中的 this 并没有被改变，依旧指向全局对象 window。
 
 <h3 id='3.7'>js跨域</h3>
 
