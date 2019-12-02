@@ -49,7 +49,8 @@ function instanceOf(left, right) {
 */
 
 console.log(typeof new RegExp('1')); // object
-console.log(typeof 123); // number
+console.log(typeof 111); // number
+
 
  
 /*************************  Array.isArray()   **********************

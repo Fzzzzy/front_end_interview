@@ -617,19 +617,22 @@
 
 <h3 id='3.3'>typeof</h3>
 
+> 所有的基本类型 number, boolean, string, symbol, undefined 都可以被判断
 - `typeof true` boolean
 - `typeof 2` number
 - `typeof NaN` number
 - `typeof '22'` string
 ---
+> 所有的对象都会被判断为 object, 使用 new 关键字的时候，除了 new Function 其他都会被判断为 object
 - `typeof {}` object
-- `typeof Array` object
+- `typeof new Array` object
 - `typeof null` object :trollface:
 - `typeof /regex/` object
 ---
 - `typeof NULL` undefined :trollface:
 - `typeof undefined` undefined
 --- 
+> 函数，构造函数都是 function，且能用 new xxx() 构造出一个对象的, typeof xxx 就是 function
 - `typeof Function` function
 - `typeof class C {}`  function;
 - `typeof Object` function :trollface:

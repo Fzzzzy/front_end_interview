@@ -89,17 +89,3 @@
 // }
 
 // console.log(find([2, 7, 11, 15], 14))
-
-/**
- * 用reduce实现
- * 转化下划线命名到驼峰命名
- * hff_fe_a2 -> hffFeA2
- */
-
-function convert(str) {
-    return str.split('').reduce((acc, cur) => {
-        return acc.endsWith('_') ? acc.substring(0, acc.length - 1) + cur.toUpperCase() : acc + cur;
-    });
-}
-
-console.log(convert('hff_fe_a2'));
